@@ -64,7 +64,7 @@ class RxOperator {
         val dan = 1..9
         val observable = dan.toObservable()
             .map { "$input x $it = ${input * it}" }
-            .subscribe{result -> println(result)}
+            .subscribe{println(it)}
     }
 
 
@@ -75,7 +75,7 @@ class RxOperator {
         val foodList = arrayOf("apple", "banana-cream", "cake", "oreo", "ice-cream")
 
         foodList.toObservable()
-            .filter{food: String -> food.endsWith("cream")}
+            .filter{it.endsWith("cream")}
             .subscribe{ println(it)}
     }
 

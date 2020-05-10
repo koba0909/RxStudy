@@ -29,7 +29,7 @@ class ExObservable {
         val observable = Observable.just("red", "green", "blue")
 
         val disposable = observable.subscribe(
-            { v: String -> println("onNext : $v") },
+            { println("onNext : $it") },
             { err: Throwable -> println("onError : $err") },
             { println("onComplete") }
         )
@@ -57,7 +57,7 @@ class ExObservable {
             emitter.onComplete()
         }
 
-        observable.subscribe { v -> println(v.toString()) }
+        observable.subscribe { println(it.toString()) }
     }
 
     /**
@@ -66,7 +66,7 @@ class ExObservable {
     fun fromArray() {
         val arr = arrayOf(100, 200, 300)
         val observable: Observable<Int> = Observable.fromArray(*arr)
-        observable.subscribe { x -> println(x) }
+        observable.subscribe { println(it) }
     }
 
     /**
@@ -80,7 +80,7 @@ class ExObservable {
 
         val observable = Observable.fromIterable(list)
 
-        observable.subscribe { x -> println(x) }
+        observable.subscribe { println(it) }
     }
 
     /**
@@ -94,7 +94,7 @@ class ExObservable {
 
         val observable = Observable.fromCallable(callable)
 
-        observable.subscribe { x -> println(x) }
+        observable.subscribe { println(it) }
     }
 
     /**
@@ -108,7 +108,7 @@ class ExObservable {
 
         val observable = Observable.fromFuture(future)
 
-        observable.subscribe { x -> println(x) }
+        observable.subscribe { println(it) }
     }
 
     /**
@@ -122,7 +122,7 @@ class ExObservable {
 
         val observable = Observable.fromPublisher(publisher)
 
-        observable.subscribe { x -> println(x) }
+        observable.subscribe { println(it) }
     }
 
     /**
@@ -133,8 +133,8 @@ class ExObservable {
      * just로 2개 이상의 아이템이 발행되면 onNext 이벤트 발생시 에러가 발생
      */
     fun singleJust(){
-        val source = Single.just("hello single");
-        source.subscribe{ x -> println(x)}
+        val source = Single.just("hello single")
+        source.subscribe{ it -> println(it)}
     }
 
     /**
@@ -167,10 +167,10 @@ class ExObservable {
      */
     fun asyncSubject(){
         val subject = AsyncSubject.create<Int>()
-        subject.subscribe{ data -> println("Subscriber #1 => $data")}
+        subject.subscribe{ println("Subscriber #1 => $it")}
         subject.onNext(1)
         subject.onNext(3)
-        subject.subscribe{ data -> println("Subscriber #2 => $data")}
+        subject.subscribe{ println("Subscriber #2 => $it")}
         subject.onNext(5)
         subject.onComplete()
     }
@@ -183,7 +183,7 @@ class ExObservable {
         val source = Observable.fromArray(*temperature)
 
         val subject = AsyncSubject.create<Float>()
-        subject.subscribe{ data -> println("Subscriber #1 => $data")}
+        subject.subscribe{ println("Subscriber #1 => $it")}
 
         source.subscribe(subject)
     }
@@ -193,10 +193,10 @@ class ExObservable {
      */
     fun behaviorSubject(){
         val subject = BehaviorSubject.createDefault(6)
-        subject.subscribe{data -> println("Subscriber #1 => $data")}
+        subject.subscribe{ println("Subscriber #1 => $it")}
         subject.onNext(1)
         subject.onNext(3)
-        subject.subscribe{data -> println("Subscriber #2 => $data")}
+        subject.subscribe{ println("Subscriber #2 => $it")}
         subject.onNext(5)
         subject.onComplete()
     }
@@ -206,10 +206,10 @@ class ExObservable {
      */
     fun publishSubject(){
         val subject = PublishSubject.create<Int>()
-        subject.subscribe{ data -> println("Subscriber #1 => $data")}
+        subject.subscribe{ println("Subscriber #1 => $it")}
         subject.onNext(1)
         subject.onNext(3)
-        subject.subscribe{ data -> println("Subscriber #2 => $data")}
+        subject.subscribe{ println("Subscriber #2 => $it")}
         subject.onNext(5)
         subject.onComplete()
     }
@@ -221,10 +221,10 @@ class ExObservable {
      */
     fun replaySubject(){
         val subject = ReplaySubject.create<Int>()
-        subject.subscribe{ data -> println("Subscriber #1 => $data")}
+        subject.subscribe{ println("Subscriber #1 => $it")}
         subject.onNext(1)
         subject.onNext(3)
-        subject.subscribe{ data -> println("Subscriber #2 => $data")}
+        subject.subscribe{ println("Subscriber #2 => $it")}
         subject.onNext(5)
         subject.onComplete()
     }
@@ -242,12 +242,12 @@ class ExObservable {
                 .take(dataArray.size.toLong())
 
             val source = balls.publish()
-            source.subscribe{ data -> println("Subscriber #1 => $data")}
-            source.subscribe{ data -> println("Subscriber #2 => $data")}
+            source.subscribe{ println("Subscriber #1 => $it")}
+            source.subscribe{ println("Subscriber #2 => $it")}
             source.connect()
 
             Thread.sleep(250)
-            source.subscribe{ data -> println("Subscriber #3 => $data")}
+            source.subscribe{ println("Subscriber #3 => $it")}
             Thread.sleep(100)
         })
 
