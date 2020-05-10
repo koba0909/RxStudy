@@ -121,4 +121,78 @@ class AdaptOperator {
             .subscribe ( System.out::println )
     }
 
+    /**
+     * concatMap()함수는 flatMap()함수와 매우 비슷하고, flatMap()는 먼저
+     * 들어온 데이터를 처리하는 도중에 새로운 데이터가 들어오면 나중에
+     * 들어온 데이터의 처리 결과가 먼저 출력 될 수 있다.
+     * 이를 인터리빙(끼어들기)라고 하는데, concapMap()을 사용하면 먼저
+     * 들어온 데이터 순서대로 처리하여 결과를 낼 수 있다.
+     */
+    fun concatMap(){
+        var balls = arrayOf(1, 3, 5)
+        Observable.interval(1000L, TimeUnit.MILLISECONDS)
+            .map { it.toInt() }
+            .map { balls.get(it) }
+            .take(balls.size.toLong())
+            .concatMap {ball -> Observable.interval(2000L, TimeUnit.MILLISECONDS)
+                .map { "$ball - PENTAGON" }
+                .take(2)}
+            .subscribe(System.out::println)
+    }
+
+    /**
+     * switchMap()함수는 순서를 보장하기 위해 기존에 진행 중이던 작업을
+     * 바로 중단한다. 여러 개의 값이 발행되었을 때 마지막에 들어온 값만
+     * 처리하고 싶을 때 사용한다.
+     *
+     * interval값을 조정가면서 테스트해야 이해가 쉽다.
+     */
+    fun switchMap(){
+        var balls = arrayOf(1, 3, 5)
+        Observable.interval(1000L, TimeUnit.MILLISECONDS)
+            .map { it.toInt() }
+            .map { balls.get(it) }
+            .take(balls.size.toLong())
+            .doOnNext {println(it)}
+            .switchMap {ball -> Observable.interval(2000L, TimeUnit.MILLISECONDS)
+                .map { "$ball - PENTAGON" }
+                .take(2)}
+            .subscribe(System.out::println)
+    }
+
+    /**
+     * groupBy() 함수는 어떤 기준으로 단일 Observable을 여러개로 이루어진
+     * Observable 그룹으로 만든다.
+     */
+    fun groupBy(){
+        val balls = arrayOf("6", "4", "2t", "2", "6t", "4")
+
+        balls.toObservable()
+            .groupBy { grouping(it) }
+            .subscribe { group ->
+                group.subscribe {
+                    println("key : ${group.key}, value : $it")
+                }}
+    }
+
+    fun grouping(ball: String): String{
+        when(ball.last().toString()){
+            "t" -> return "TRIANGLE"
+            else -> return "BALL"
+        }
+    }
+
+    /**
+     * scan()함수는 reduce()함수와 비슷한데, 모든 데이터가 입력된 후
+     * 그것을 종합하여 마지막 1개의 데이터만을 구독자에게 발행하는
+     * reduce()와 달리 scan()함수는 실행할 때만다 입력값에 맞는 중간 결과
+     * 및 최종결과를 구독자에게 발행한다.
+     */
+    fun scan(){
+        val foodList = arrayOf("apple", "banana-cream", "cake")
+
+        foodList.toObservable()
+            .scan{ food1, food2 -> "$food1 < $food2"}
+            .subscribe(::println)
+    }
 }
