@@ -1,5 +1,8 @@
 package com.testcode.btyisu.rxstudy
 
+import com.testcode.btyisu.rxstudy.example.AdaptOperator
+import com.testcode.btyisu.rxstudy.example.RxOperator
+import com.testcode.btyisu.rxstudy.example.Scheduler
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -10,8 +13,21 @@ import org.junit.Assert.*
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 class ExampleUnitTest {
+
+    val rxOperator = RxOperator()
+    val adaptOperator = AdaptOperator()
+    val scheduler = Scheduler()
+
     @Test
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)
     }
+    @Test
+    fun flipExample() = scheduler.flipExample()
+
+    @Test
+    fun schedulerExample() = scheduler.newSchedulerExample()
+
+    @Test
+    fun testComputationScheduler() = scheduler.computationSchedulerExample()
 }

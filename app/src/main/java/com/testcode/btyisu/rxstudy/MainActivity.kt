@@ -1,24 +1,20 @@
 package com.testcode.btyisu.rxstudy
 
-import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import io.reactivex.Observable
+import androidx.appcompat.app.AppCompatActivity
+import com.testcode.btyisu.rxstudy.example.AdaptOperator
 
+/**
+ * 1,2장 -> ExObservable / 3장 -> RxOperator / 4장 -> AdapterOperator
+ */
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        emit()
-
+        val rxOperator = AdaptOperator()
+        rxOperator.scan()
     }
 
-    fun emit(){
-        Observable.just("Hello", "RxJava 2!!")
-            .subscribe{
-                println(it)
-            }
-    }
 }
