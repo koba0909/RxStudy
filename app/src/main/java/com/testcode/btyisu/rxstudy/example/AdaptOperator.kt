@@ -1,5 +1,6 @@
 package com.testcode.btyisu.rxstudy.example
 
+import android.annotation.SuppressLint
 import com.testcode.btyisu.rxstudy.common.NLog
 import com.testcode.btyisu.rxstudy.common.Utils
 import io.reactivex.Observable
@@ -15,7 +16,9 @@ class AdaptOperator {
 
     /**
      *  interval() 함수는 일정시간 간격으로 데이터 흐름을 생성합니다.
+     *  interval() 함수는 주어진 시간 간격으로 0부터 1씩 증가하는 Long 객체를 발행한다.
      */
+    @SuppressLint("CheckResult")
     fun interval(){
         Utils.setTime()
 
@@ -27,7 +30,7 @@ class AdaptOperator {
 
         // 일반 적인 자바 프로그램에선 스레드 슬립을 해주지 않으면 프로그램이 바로 종료되는거 같다
         // 안드로이드에선 종료되지 않는다.
-//        Utils.sleep(1000)
+        Utils.sleep(1000)
     }
 
     /**

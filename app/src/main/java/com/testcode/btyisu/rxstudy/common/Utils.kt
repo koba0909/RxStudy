@@ -18,6 +18,10 @@ class Utils {
             time = System.currentTimeMillis()
         }
 
+        fun flip(string: String): String {
+            return "(flipped) $string"
+        }
+
     }
 
 }

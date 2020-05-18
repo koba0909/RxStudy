@@ -1,5 +1,6 @@
 package com.testcode.btyisu.rxstudy.example
 
+import com.testcode.btyisu.rxstudy.common.Utils
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.toObservable
 import io.reactivex.subjects.AsyncSubject
@@ -65,6 +66,8 @@ class RxOperator {
         val observable = dan.toObservable()
             .map { "$input x $it = ${input * it}" }
             .subscribe{println(it)}
+
+        Utils.sleep(500)
     }
 
 
@@ -77,6 +80,8 @@ class RxOperator {
         foodList.toObservable()
             .filter{it.endsWith("cream")}
             .subscribe{ println(it)}
+
+        Utils.sleep(500)
     }
 
     /**
