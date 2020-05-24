@@ -31,4 +31,10 @@ class ExampleUnitTest {
     @Test
     fun testComputationScheduler() = scheduler.computationSchedulerExample()
 
+    @Test
+    fun testExecutorScheduler() = scheduler.executorSchedulerExample()
+
+    @Test
+    fun testCallbackHeaven() = scheduler.callBackHeavenByZip()
+
 }
