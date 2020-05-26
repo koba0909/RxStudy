@@ -30,4 +30,13 @@ class ExampleUnitTest {
 
     @Test
     fun testComputationScheduler() = scheduler.computationSchedulerExample()
+
+//    @Test
+//    fun testIoScheduler() = scheduler.ioSchedulerExample()
+
+    @Test
+    fun trampolineScheduler() = scheduler.trampolineScheduler()
+
+    @Test
+    fun singleScheduler() = scheduler.singleThreadScheduler()
 }
