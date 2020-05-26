@@ -13,7 +13,6 @@ import org.junit.Assert.*
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 class ExampleUnitTest {
-
     val rxOperator = RxOperator()
     val adaptOperator = AdaptOperator()
     val scheduler = Scheduler()
@@ -22,6 +21,7 @@ class ExampleUnitTest {
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)
     }
+
     @Test
     fun flipExample() = scheduler.flipExample()
 
@@ -39,4 +39,10 @@ class ExampleUnitTest {
 
     @Test
     fun singleScheduler() = scheduler.singleThreadScheduler()
+
+    @Test
+    fun testExecutorScheduler() = scheduler.executorSchedulerExample()
+
+    @Test
+    fun testCallbackHeaven() = scheduler.callBackHeavenByZip()
 }
